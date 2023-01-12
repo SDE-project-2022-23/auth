@@ -1,0 +1,109 @@
+openapi: 3.0.1
+info:
+  title: Auth SDE
+  version: "1.0.0"
+  description: |-
+    Authentification service for SDE project
+
+servers:
+  - url: http://127.0.0.1:3000
+    description: Serveur local
+
+paths:
+  /login:
+    post:
+      summary: Authentification for user
+      operationId: loginUser
+      description: |-
+        Authenticate an user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginCredential"
+        required: true
+      tags:
+        - Authentification
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+          description: successful operation
+  /user:
+    post:
+      summary: Register user
+      operationId: registerUser
+      description: |-
+        use to register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRegistration"
+        required: true
+      tags:
+        - Utilisateurs
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserModel"
+          description: successful operation
+
+components:
+  schemas:
+    UserRegistration:
+      required:
+        - login
+        - password
+      type: object
+      properties:
+        login:
+          format: string
+          type: string
+        password:
+          format: string
+          type: string
+          minLength: 6
+    UserModel:
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        login:
+          format: string
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+        - id
+        - login
+    LoginCredential:
+      required:
+        - login
+        - password
+      type: object
+      properties:
+        login:
+          format: string
+          type: string
+        password:
+          format: string
+          type: string
+          minLength: 6
+    Token:
+      required:
+        - token
+      type: object
+      properties:
+        token:
+          format: jwtToken
+          type: string
