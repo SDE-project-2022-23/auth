@@ -52,6 +52,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserModel"
           description: successful operation
+  /user/auth:
+    post:
+      summary: Authentification for user
+      operationId: authUser
+      description: |-
+        Authenticate an user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Token"
+        required: true
+      tags:
+        - Utilisateurs
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserModel"
+          description: successful operation
 
 components:
   schemas:

@@ -25,6 +25,7 @@ export function validateJwt(token: string): Promise<User> {
     passphrase: process.env.JWT_PASSPHRASE,
   };
   const publicKey = fs.readFileSync(path.join(__dirname, "./../../public.pem"));
+  // const publicKey = secret.key;
   const verifyOptions: VerifyOptions = {
     algorithms: ["RS256"],
   };

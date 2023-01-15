@@ -33,6 +33,7 @@ export class UserService {
     user: TokenRequest
   ): Omit<UserWithPassword, "id"> {
     const salt = bcrypt.genSaltSync(10);
+    console.log(user.password);
     return {
       login: user.login,
       password: bcrypt.hashSync(user.password, salt),

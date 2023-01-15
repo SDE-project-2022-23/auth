@@ -40,16 +40,3 @@ export const getUserById = async (id: string): Promise<User | null> => {
       );
     });
 };
-
-export const getUsers = async (): Promise<User[]> => {
-  return UserModel.find()
-    .then((users) => {
-      return users;
-    })
-    .catch((err) => {
-      console.error(err);
-      throw new Error(
-        "getUsers: Erreur lors de la recherche des utilisateurs dans la bdd"
-      );
-    });
-};

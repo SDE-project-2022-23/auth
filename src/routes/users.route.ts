@@ -9,6 +9,7 @@ const createUser: RequestHandler = async (req, res, next) => {
   const userRequest: TokenRequest = req.body;
 
   // creation de l'utilisateur
+  console.log(userRequest);
   UserService.createUser(userRequest)
     .then((userAdded) => {
       res.status(200).json({ user: userAdded });
@@ -17,7 +18,7 @@ const createUser: RequestHandler = async (req, res, next) => {
 };
 
 const authentification: RequestHandler = async (req, res, next) => {
-  var token = req.headers.authorization;
+  var token = req.body.token;
   if (!token) {
     res.status(401).send({
       message: "You need to be connected to access this resource",
@@ -42,7 +43,7 @@ const authentification: RequestHandler = async (req, res, next) => {
   }
 };
 
-userRouter.get("/", authentification);
+userRouter.post("/auth", authentification);
 userRouter.post("/", createUser);
 
 export default userRouter;
